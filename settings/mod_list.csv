@@ -1,0 +1,73 @@
+CSV_VERSION=1.3
+#Comment: -do not change matrix position or remove CSV_VERSION:
+# #        -Description:
+# #        -modify qsys and project tcl
+# #        -attention: tabs are used in search commands! 
+# #                   commas are special operators and used for table split
+# #					  use after comma tab or no space
+# #        -Wildcard can be used.
+# #           -ex.:"*set ddr3_sdram*" or "set ddr3*sdram"
+# #        -Currently not allowed characters in search string are: []{}
+# #           -replace them with * or place \ in front of this character
+# #           -ex.:"  set DDR \[ create_bd_intf_port*"
+# #        -Priority of file modification: 
+# #				   read:ID read: read file (project directory)
+# #                   0:ID 0: remove(comment) line (optional: add one line after removed line)
+# #                   1:ID 1: add line before line_check
+# #                   2:ID 2: add line after line_check
+# #                   3:ID 3: remove(comment) component property 
+# #                   4:ID 4: add component property 
+# # 				  5:ID 5: replace strings (using regexp -> wildcard "(.*)")
+# #					  6:ID tcl_cmd: special tcl commands for project
+# #				  write:ID write: write file (project directory)
+# #        -ID: -index for list type
+# #				ID read: read file (project directory) 
+# #					     ex.: read,filename,
+# #				ID write: write file (project directory)
+# #					      ex.: write,filename,
+# #             ID 0: remove(comment) line (set modify to NA, if no line to add after removed line)
+# #             ID 1: add line {add modify text before line_check}
+# #             ID 2: add line {add modify text after line_check}
+# #             ID 3: remove(comment) component property {instance name,property,property,...}
+# #                   line_check must be instance name, ex.:"sdram_controller"
+# #                   only one line per line_check(component) allowed!
+# #                   separate multiple properties with comma
+# #             ID 4: add component property {instance name,property,property,...}
+# #                   line_check must be instance name, ex.:"sdram_controller"
+# #                   only one line per line_check(component) allowed!
+# #                   separate multiple properties with comma
+# #                   should a old property be overwritten, please write it with wildcard as ID 3 (remove(comment) component property), too!
+# #				ID 5: replace strings 
+# #					  using regexp -> wildcard "(.*)"
+# # 				  only one string per line_check allowed
+# #				ID tcl_cmd: special tcl commands for project
+#How to use:
+# #		read,<filename.type>,
+# #		<id>,<line_check>,<modify>,<modify>,...
+# #		write,,
+#Special variables (don't use in filenames):
+# #		qsys_tcl_all -> modifying all qsys tcl files
+# #		project_tcl -> modifying project tcl file
+# ###############################
+# #basic modification for qsys_tcl
+read,qsys_tcl_all,
+0,	*set_project_property DEVICE_FAMILY {*},	set_project_property DEVICE_FAMILY $::device_family
+0,	*set_project_property DEVICE {*},	set_project_property DEVICE $::device
+1,	*save_system*,	auto_assign_system_base_addresses
+2,	*package require*,	set arg [split $::args "|"],	set ::device [lindex $arg 0],	set ::device_family [lindex $arg 1],	set ::ddr_device [lindex $arg 2],	set ::sdk_name [lindex $arg 3]
+3,	sdram_controller,	*
+4,	sdram_controller,	apply_preset sdram_controller "$::ddr_device"
+3,	onchip_flash,	initializationFileName
+4,	onchip_flash,	set_instance_parameter_value onchip_flash {initializationFileName} "../software/$::sdk_name/$::sdk_name.hex"
+write,,			  
+#
+# #basic modification for project_tcl, use only ID 0,1,2,5
+read,project_tcl,
+0,	* -name DEVICE *,	NA
+0,	* -name FAMILY *,	NA
+0,	* -name MIN_CORE_JUNCTION_TEMP *,	NA
+0,	* -name MAX_CORE_JUNCTION_TEMP *,	NA
+0,	* -name DEVICE_FILTER_PIN_COUNT *,	NA
+0,	* -name DEVICE_FILTER_SPEED_GRADE *,	NA
+write,,	
+#

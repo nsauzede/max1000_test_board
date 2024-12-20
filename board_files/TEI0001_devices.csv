@@ -1,0 +1,15 @@
+CSV_VERSION=1.1
+GENERAL_INFO=Category Modules_and_Module_Carriers/2.5x6.15,
+#Comment:-do not change matrix position or remove CSV_VERSION or GENERAL_INFO:
+ID  ,PRODID                 ,FAMILY             ,DEVICE             ,SHORTNAME         ,FLASHTYP       ,FLASH_SIZE     ,DDR_DEV                         ,DDR_SIZE       ,PCB_REV     ,NOTES
+1   ,TEI0001-02-08-C8       ,"MAX 10"           ,10M08SAU169C8G     ,DBC83             ,W74M64FVSSIQ   ,8MB            ,TEI0001_single_W9864G6JT-6      ,8MB            ,REV02       ,--
+2   ,TEI0001-02-16-C8       ,"MAX 10"           ,10M16SAU169C8G     ,FBC83             ,W74M64FVSSIQ   ,8MB            ,TEI0001_single_W9864G6JT-6      ,8MB            ,REV02       ,--
+3   ,TEI0001-03-08-C8       ,"MAX 10"           ,10M08SAU169C8G     ,DBC83             ,W74M64FVSSIQ   ,8MB            ,TEI0001_single_W9864G6JT-6      ,8MB            ,REV03       ,--
+4   ,TEI0001-03-16-C8       ,"MAX 10"           ,10M16SAU169C8G     ,FBC83             ,W74M64FVSSIQ   ,8MB            ,TEI0001_single_W9864G6JT-6      ,8MB            ,REV03       ,--
+5   ,TEI0001-03-16-C8A      ,"MAX 10"           ,10M16SAU169C8G     ,FBC84             ,W74M64FVSSIQ   ,8MB            ,TEI0001_single_W9825G6JB-6      ,32MB           ,REV03       ,--
+6   ,TEI0001-03-DBC83A      ,"MAX 10"           ,10M08SAU169C8G     ,DBC83             ,W25Q64JVSSIQ   ,8MB            ,TEI0001_single_W9864G6JT-6      ,8MB            ,REV03       ,--
+7   ,TEI0001-03-FBC83A      ,"MAX 10"           ,10M16SAU169C8G     ,FBC83             ,W25Q64JVSSIQ   ,8MB            ,TEI0001_single_W9864G6JT-6      ,8MB            ,REV03       ,--
+8   ,TEI0001-03-FBC84A      ,"MAX 10"           ,10M16SAU169C8G     ,FBC84             ,W25Q64JVSSIQ   ,8MB            ,TEI0001_single_W9825G6JB-6      ,32MB           ,REV03       ,--
+9   ,TEI0001-04-DBC83A      ,"MAX 10"           ,10M08SAU169C8G     ,DBC83             ,W25Q64JVSSIQ   ,8MB            ,TEI0001_single_W9864G6JT-6      ,8MB            ,REV04       ,--
+10  ,TEI0001-04-FBC83A      ,"MAX 10"           ,10M16SAU169C8G     ,FBC83             ,W25Q64JVSSIQ   ,8MB            ,TEI0001_single_W9864G6JT-6      ,8MB            ,REV04       ,--
+11  ,TEI0001-04-FBC84A      ,"MAX 10"           ,10M16SAU169C8G     ,FBC84             ,W25Q64JVSSIQ   ,8MB            ,TEI0001_single_W9825G6JB-6      ,32MB           ,REV04       ,--

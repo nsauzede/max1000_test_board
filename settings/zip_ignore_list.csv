@@ -1,0 +1,16 @@
+CSV_VERSION=1.2
+# #Comment: do not change matrix position use or remove CSV_VERSION:
+# #        -Description:
+# #        -ZIP ignore list entry content when project is ziped
+# #        -if file not found, tcl ignore is used.
+# #        -ID:           -0: Ignored Folder and files (start with project base path)
+# #        -ID:           -1: Ignored Folder and files with wildcards (start with project base path)
+# #0,1
+id  ,Folder/File 
+0   ,os
+0   ,quartus
+0   ,software
+0   ,log
+1   ,development*.cmd
+1   ,prod_*.cmd
+1   ,_binaries_*

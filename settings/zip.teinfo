@@ -1,0 +1,13 @@
+#-----------------------------------------------#
+#--Automatically generated file. Do not modify--#
+#-----------------------------------------------#
+ZIPINFO_CSV=        1.0
+ExporterInitials=   TD
+ZIPName=            TEI0001-test_board_noprebuilt-quartus_22.1std.2-20240207162519
+Destination=        PublicDoc
+Typ=                NA
+BoardTyp=           NA
+ProjectName=        test_board
+ProjectToolName=    Quartus_Lite-22.1std.2
+ReleaseDate=        2024.02.07 16:25:19
+Revision=           NA
