@@ -283,6 +283,7 @@ namespace eval ::TE {
       } else {
         lappend command --boot ${::TE::QROOTPATH}../niosv/components/bootloader/niosv_bootloader.srec
       }
+      ::TE::UTILS::te_msg -type Info -id TE_SDK-16 -msg "Generate SREC with command: $command"
       if {[catch {eval $command} result]} {::TE::UTILS::report -msg $result -command $command -msgid TE_SDK-17}
       
       if {$generate_bin_file eq 1} {
@@ -361,11 +362,12 @@ namespace eval ::TE {
             lappend command --file=$pgm_flash_bin
           }
         } else {
-          set command flashrom
+          set command "exec ${::TE::BASEFOLDER}/flashrom.sh"
           lappend command --programmer ft2232_spi:type=2232H,port=B,divisor=4
           if { $ERASE } { lappend command --erase } else { lappend command --write $pgm_flash_bin }
         }
         
+        ::TE::UTILS::te_msg -type Info -id TE_SDK-31 -msg "FLASHING command: $command"
         [catch {eval $command} result]
         if {[::TE::UTILS::report -msg $result -command $command -msgid TE_SDK-32 $SILENT]} {
           return -code error "$tmp_text flash memory failed."
