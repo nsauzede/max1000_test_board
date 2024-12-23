@@ -4,12 +4,17 @@
 #rem c:/intelfpga_lite/22.1std/niosv/bin/niosv-shell --wait --run "niosv-bsp --create --type=hal --sopcinfo=../../quartus/NIOS_test_board.sopcinfo --script=hal_bsp.tcl ./settings.bsp"
 #rem cd ..\..
 
-cp source_files/software/test_tei0001/main.c software/test_tei0001/main.c
+cp source_files/software/test_tei0001/*.c software/test_tei0001
+if [ ! -d .ut ]; then
+    echo "Error: you must initialize an UT project here - See https://github.com/nsauzede/.ut"
+    exit 1
+fi
+ut retest || exit 1
 
 cd software/test_tei0001
-rm test_tei0001.bin
-rm build\test_tei0001.elf
-rm build\test_tei0001.srec
+rm -f test_tei0001.bin
+rm -f build\test_tei0001.elf
+rm -f build\test_tei0001.srec
 #rem c:/intelfpga_lite/22.1std/niosv/bin/niosv-app --app-dir=./ --bsp-dir=../test_tei0001_bsp --incs=./ --srcs=./main.c --elf-name=test_tei0001.elf
 #rem c:/intelfpga_lite/22.1std/niosv/bin/niosv-shell --wait --run "cmake -S ./ -B ./build -G 'Unix Makefiles' -DCMAKE_BUILD_TYPE=Release "
 ~/intelFPGA_lite/22.1std/niosv/bin/niosv-shell --wait --run "make -C ./build"

@@ -15,6 +15,8 @@
 #include "altera_avalon_pio_regs.h"
 #include "altera_avalon_spi.h"
 
+#include "shell.c"
+
 void init_g_sen();
 
 int main()
@@ -82,6 +84,12 @@ int main()
       y_value_1 = rdata[1];
 
       y_value = (y_value_1 + y_value_2 + y_value_3 + y_value_4 + y_value_5) / 5;
+      printf("alt_avalon_spi_command(%x %x %x %x %x) => %x %x => y1=%x y2=%x y3=%x y4=%x y5=%x => y_value=%x\n\r",
+        2, 1, wdata[0], 0, 0,
+        rdata[0], rdata[1],
+        y_value_1, y_value_2, y_value_3, y_value_4, y_value_5,
+        y_value
+      );
 
       // determine LED setting according to y-axis value
       if (y_value > -4 && y_value < 4)      led_out = 0x18;
@@ -99,6 +107,8 @@ int main()
 
       // wait 10 ms
       usleep(10000);
+
+      shell();
     }
   }
   return 0;
