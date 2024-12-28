@@ -2,11 +2,26 @@
 #include <string.h>
 #define SHELL_HELP              "help"
 #define SHELL_SPI               "spi"
-#define SHELL_OUT_HELP      "Help: bla bla"
-#define SHELL_OUT_UNKNOWN   "Unknown command"
+#define SHELL_CHECK_SENSOR      "check_sensor"
+#define SHELL_OUT_OK            "OK"
+#define SHELL_OUT_ERROR         "ERROR"
+#define SHELL_OUT_HELP          "Help: bla bla"
+#define SHELL_OUT_UNKNOWN       "Unknown command"
+int check_sensor() {
+    alt_u8 wdata[1]={0xcf};
+    alt_u8 rdata[1]={0};
+    alt_avalon_spi_command (SPI_G_SENSOR_BASE, 0, 1, wdata, 1, rdata, 0);
+    return rdata[0] == 0x33;
+}
 void shell_eval(int input_len, char *input, int output_len, char *output) {
     if (!strcmp(input, SHELL_HELP)) {
         snprintf(output, output_len, SHELL_OUT_HELP);
+    } else if (!strncmp(input, SHELL_CHECK_SENSOR, strlen(SHELL_CHECK_SENSOR))) {
+        if (check_sensor()) {
+            snprintf(output, output_len, SHELL_OUT_OK);
+        } else {
+            snprintf(output, output_len, SHELL_OUT_ERROR);
+        }
     } else if (!strncmp(input, SHELL_SPI, strlen(SHELL_SPI))) {
         alt_u8 wdata[3]={0, 0, 0};
         int a1, a2, a3, a4, a5;
