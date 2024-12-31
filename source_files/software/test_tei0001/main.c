@@ -9,13 +9,14 @@
  *
  */
 
-
+#include <unistd.h>
 #include "system.h"
 #include "stdio.h"
 #include "altera_avalon_pio_regs.h"
 #include "altera_avalon_spi.h"
 
-#include "shell.c"
+//#include "shell.c"
+extern void shell();
 
 void init_g_sen();
 
@@ -34,8 +35,6 @@ int main()
 
 	alt_8 sel;
 	alt_8 n_sel = 0x00;
-  alt_u8 wb_send[1];
-  alt_u8 wb_get[20];
   
   IOWR_ALTERA_AVALON_PIO_DATA(PIO_LED_BASE, 0x55); // reset sel counter
   IOWR_ALTERA_AVALON_PIO_DATA(PIO_LED_BASE, 0xFF);
@@ -130,4 +129,22 @@ void init_g_sen()
   wdata[2]= 0x00;        // continous update, little endian, 2g full scale, high resolution disabled, self test disabled, 4 wire SPI
 
   alt_avalon_spi_command (SPI_G_SENSOR_BASE, 0, 3, wdata, 0, rdata, 0);
+}
+
+int set_sensor(int nout, int out[], int nin, int in[]) {
+#define MAXR 2
+#define MAXW 3
+    alt_u8 rdata[MAXR]={0,0};
+    alt_u8 wdata[MAXW]={0, 0, 0};
+    if (nout > MAXR || nin > MAXW) {
+        return -1;
+    }
+    for (int i = 0; i < nin; i++) {
+        wdata[i] = in[i];
+    }
+    alt_avalon_spi_command (SPI_G_SENSOR_BASE, 0, nin, wdata, nout, rdata, 0);
+    for (int i = 0; i < nout; i++) {
+        out[i] = rdata[i];
+    }
+    return 0;
 }

@@ -5,11 +5,13 @@
 #rem cd ..\..
 
 cp source_files/software/test_tei0001/*.c software/test_tei0001
-if [ ! -d .ut ]; then
+UT=ut
+[ ! command -v ${UT} >& /dev/null ]; UT=.ut/ut
+if [ ! command -v ${UT} >& /dev/null ]; then
     echo "Error: you must initialize an UT project here - See https://github.com/nsauzede/.ut"
     exit 1
 fi
-ut retest || exit 1
+${UT} retest || exit 1
 
 cd software/test_tei0001
 rm -f test_tei0001.bin

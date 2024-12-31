@@ -1,18 +1,13 @@
 #include <inttypes.h>
-#define SPI_G_SENSOR_BASE 1234
-typedef uint32_t alt_u32;
-typedef uint8_t alt_u8;
-int alt_avalon_spi_command(alt_u32 base, alt_u32 slave,
-                           alt_u32 write_length, const alt_u8 * write_data,
-                           alt_u32 read_length, alt_u8 * read_data,
-                           alt_u32 flags) {
-    if (write_length == 1 && write_data[0] == 0xcf && read_length == 1) {
+// Mock
+int set_sensor(int read_length, int read_data[], int write_length, int write_data[]) {
+    if (write_length == 1 && read_length == 1 && write_data[0] == 0xcf) {
         read_data[0] = 0x33;
-    } else {
+    } else if (read_length == 2) {
         read_data[0] = 1;
         read_data[1] = 2;
     }
-    return 0;
+    return -1;
 }
 
 #include "shell.c"
